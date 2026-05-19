@@ -1,0 +1,22 @@
+@"
+# === 1. DATASETS LOURDS : Interdiction stricte (Obligatoire) ===
+**/Source Files/QR Codes/QR_All_benign/qrs/
+**/Source Files/QR Codes/QR_All_Malicious/qrs/
+**/Source Files/QR Codes/*.zip
+
+# === 2. ANCIENNES VERSIONS INTERMÉDIAIRES EXCLUSES ===
+/models/
+/models_v2/
+/models_v3/
+/models_v4/
+/models_v5/
+/test/
+
+# === 3. FICHIERS TEMPORAIRES ===
+* - Copie.py
+.env
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+"@ | Out-File -FilePath .gitignore -Encoding utf8
