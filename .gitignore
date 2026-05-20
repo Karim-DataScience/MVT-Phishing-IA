@@ -3,6 +3,7 @@
 **/Source Files/QR Codes/QR_All_benign/qrs/
 **/Source Files/QR Codes/QR_All_Malicious/qrs/
 **/Source Files/QR Codes/*.zip
+**/Source Files/HTML/*.zip
 
 # === 2. ANCIENNES VERSIONS INTERMÉDIAIRES EXCLUSES ===
 /models/
@@ -20,3 +21,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 "@ | Out-File -FilePath .gitignore -Encoding utf8
+Source Files/HTML/SubProject/output/1dataset.tsv
+Source Files/HTML/SubProject/output/2dataset.csv
+Source Files/HTML/SubProject/output/2dataset.tsv
+Source Files/HTML/SubProject/output/3dataset.csv
