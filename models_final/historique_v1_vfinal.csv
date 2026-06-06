@@ -1,0 +1,19 @@
+version,format,model,auc,f1,lat,status,note
+v1,HTML,LightGBM ALL,0.987,0.944,0.49ms,🔴 Leakage,file_path encode /Malicious/
+v2,QR,Tabulaire URL,0.663,0.0,0.5ms,🔴 Bug,Chemin backslash → Bell char 0x07
+v3,HTML,LightGBM + SHAP,0.989,0.944,0.49ms,✅,"QR split SHA-256, Platt calibration"
+v4,HTML,Stacking LGB+RF+MLP,0.989,0.945,2ms,✅,Fix CalibratedClassifierCV crash
+v5,HTML,LightGBM + Platt,0.989,0.944,0.49ms,✅,"ECE=0.044, MLP n_iter=30 fix"
+v6,HTML,Stack LGB+XGB+RF+MLP,0.989,0.945,2ms,✅,"XGBoost ajouté, P@R95 fix"
+v7,QR,LightGBM URL,0.495,0.0,0.5ms,🔴 Bug,AUC<random — hash split déséquilibré
+v8,HTML,DistilBERT 256tok 3ep,0.9754,0.8887,5.2ms,🟠 Bug,MAX_CHARS=3000 tronquait tout
+v8,HTML,MobileBERT 3ep,0.8009,0.6748,42ms,🔴 Bug,Sous-entraîné — 3 epochs
+v9,HTML,DistilBERT 512tok 5ep,0.9795,0.905,4ms,✅,"MAX_CHARS=8000, MAX_LEN=512, fix v8"
+v9,HTML,MobileBERT 512tok 5ep,0.9744,0.872,58ms,✅,+0.1735 AUC vs v8 — 5 epochs fix
+v10,HTML,LightGBM feat. + Platt,0.9875,0.9445,0.86ms,🔴 Partiel,Label bug fix (int vs str)
+v10,HTML,TF-IDF word+char + Platt,0.9789,0.896,0.16ms,✅,"word(1,2)+char(3,5) combinés"
+v10,HTML,Fusion LGB+DistilBERT,0.9827,0.9044,~5ms,🔴 Bug,LGB ignoré (poids=-0.025) — index mismatch
+vFINAL,HTML,LightGBM feat. + Platt,0.9881099999999999,0.9475442699632476,1.263ms,✅ PROD,5-fold CV=0.9855±0.0023
+vFINAL,HTML,TF-IDF word+char + Platt,0.9789841556290276,0.896551724137931,0.113ms,✅ EDGE,"ECE=0.076, P@R95=0.782"
+vFINAL,HTML,DistilBERT v9,0.9794903046096594,0.9049621530698065,4ms GPU,✅,"MAX_LEN=512, 5ep — signal sémantique"
+vFINALE,HTML,MobileBERT v9,0.9743727007256673,0.8722689075630252,58ms CPU,✅ EDGE,Edge deployment — pas de GPU requis

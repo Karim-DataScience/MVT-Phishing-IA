@@ -1,0 +1,94 @@
+{
+  "version": "FINALE",
+  "date": "2026-06-01T09:20:32.633469",
+  "results": {
+    "lgb": {
+      "auc": 0.9881099999999999,
+      "f1": 0.9475442699632476,
+      "ece": 0.04387458003438797,
+      "brier": 0.03956358540828221,
+      "thr": 0.46603552854742836,
+      "p_at_r95": 0.9418374091209517,
+      "lat_ms": 1.263,
+      "lat_p95": 1.61,
+      "cv_mean": 0.9855,
+      "cv_std": 0.0023,
+      "cv_ci95": [
+        0.981,
+        0.99
+      ]
+    },
+    "tfidf": {
+      "auc": 0.9789841556290276,
+      "f1": 0.896551724137931,
+      "ece": 0.07747699783999235,
+      "thr": 0.5378236226381957,
+      "lat_ms": 0.113
+    },
+    "distilbert": {
+      "auc": 0.9794903046096594,
+      "f1": 0.9049621530698065
+    },
+    "mobilebert": {
+      "auc": 0.9743727007256673,
+      "f1": 0.8722689075630252
+    }
+  },
+  "calibration": {
+    "lgb": {
+      "a": 0.7264,
+      "b": -0.0326
+    },
+    "tfidf": {
+      "a": 1.4653,
+      "b": -0.5733
+    }
+  },
+  "monitoring": {
+    "psi_baseline": 0.002850364923640594,
+    "b_warn": 1,
+    "b_crit": 1
+  },
+  "shap_top5": [
+    "url_punct_char_count",
+    "keywords_to_words_ratio",
+    "embedded_js_count",
+    "form_count",
+    "whitespace_ratio"
+  ],
+  "deployment": {
+    "prod_realtime": {
+      "model": "LGB+Platt",
+      "auc": 0.9881099999999999,
+      "lat_ms": 1.263,
+      "recommendation": "Best AUC + Best ECE + Fastest tabular"
+    },
+    "prod_gpu": {
+      "model": "LGB+DistilBERT",
+      "auc_estimate": 0.99,
+      "lat_ms": 5,
+      "note": "Requires same split for features+text"
+    },
+    "edge_cpu": {
+      "model": "TF-IDF+Platt",
+      "auc": 0.9789841556290276,
+      "lat_ms": 0.113,
+      "recommendation": "No GPU required, 0.16ms"
+    }
+  },
+  "confound_warning": {
+    "word": "AUC=1.0 confond OOXML/OLE — valider sur dataset mixte",
+    "excel": "AUC=1.0 confond templates synthétiques — valider sur vrais fichiers"
+  },
+  "fixes_history": [
+    "v1: file_path leakage supprimé",
+    "v2: QR CSV chemin backslash fix",
+    "v4: CalibratedClassifierCV → Platt manuel",
+    "v5: QR split SHA-256 hash anti-leakage",
+    "v8→v9: MAX_CHARS 3000→8000, MAX_LEN 256→512",
+    "v8→v9: MobileBERT 3→5 epochs, warmup=200",
+    "v9→v10: label int fix (str→int)",
+    "v9→v10: PSI référence = val set",
+    "v10→vF: fusion correcte par ranking percentile"
+  ]
+}
