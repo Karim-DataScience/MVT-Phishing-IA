@@ -1,0 +1,49 @@
+{
+  "version": "v10",
+  "date": "2026-05-30T20:32:11.927776",
+  "results": {
+    "tfidf_word_char": {
+      "auc": 0.9791177071338949,
+      "f1": 0.8786407766990292,
+      "ece": 0.07754330239507612,
+      "optimal_threshold": 0.6229586361872151,
+      "p_at_r95": 0.78328611898017
+    },
+    "lgb_features": {
+      "auc": 0.9881099999999999,
+      "f1": 0.9446865571572243,
+      "ece": 0.04387458003438797
+    },
+    "distilbert_v9": {
+      "auc": 0.9794903046096594,
+      "f1": 0.9049621530698065
+    },
+    "mobilebert_v9": {
+      "auc": 0.9743727007256673,
+      "f1": 0.8722689075630252
+    },
+    "fusion": {
+      "auc": 0.9826562608721026,
+      "f1": 0.9044368600682594
+    }
+  },
+  "monitoring": {
+    "psi_baseline": 0.030997412511632683,
+    "batch_attention": 4,
+    "batch_critical": 6
+  },
+  "fixes_v10": [
+    "Label dtype bug : str→int corrigé (LGB AUC NaN)",
+    "PSI référence = val set (pas train set)",
+    "A/B test avec vraies probas v8 (pas bruit simulé)",
+    "TF-IDF word+char combinés (+0.004 AUC)",
+    "Fusion ranking-based (robuste index mismatch)"
+  ],
+  "deployment": {
+    "html": "PROD-READY (LGB+DistilBERT fusion)",
+    "qr": "PROD-READY (LGB URL features)",
+    "pdf": "RÉSERVES (text_length dominant)",
+    "word": "VALIDER (confound OOXML)",
+    "excel": "VALIDER (templates synthétiques)"
+  }
+}

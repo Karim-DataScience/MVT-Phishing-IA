@@ -1,0 +1,19 @@
+version,format,model,auc,f1,latency,status,note
+v1,HTML,LightGBM ALL,0.987,0.944,0.49ms,Leakage,file_path /Malicious/ dans chemin
+v2,QR,Tabulaire URL,0.663,0.0,0.5ms,Bug,Chemin backslash → Bell char 0x07
+v3,HTML,LightGBM + SHAP,0.989,0.944,0.49ms,OK,Split QR par hash URL — fix leakage
+v4,HTML,Stacking LGB+RF+MLP,0.989,0.945,2ms,OK,Calibration Platt manuelle — fix crash
+v5,HTML,LightGBM + Platt,0.989,0.944,0.49ms,OK,"ECE=0.0443, MLP n_iter=30 fix"
+v6,HTML,Stack LGB+XGB+RF+MLP,0.989,0.945,2ms,OK,"XGBoost ajouté, P@R95 fix"
+v7,HTML,LGB + DistilBERT fusion,0.989,0.945,~5ms,OK,MC-Dropout QR fix — partiel
+v7,QR,LightGBM URL,0.495,0.0,0.5ms,Bug,AUC < random — hash split bug
+v8,HTML,TF-IDF LR (baseline),0.9748,0.876,2ms,Baseline,v8 introduit texte HTML brut
+v8,HTML,DistilBERT 256tok 3ep,0.9754,0.8887,5.2ms,Bug,MAX_CHARS=3000 tronquait tout le monde
+v8,HTML,MobileBERT 3ep,0.8009,0.6748,42ms,Bug,Sous-entraîné — 3 epochs insuffisants
+v9,HTML,"TF-IDF LR word(1,2)",0.9748,0.876,2ms,Baseline,Identique v8 — correcte référence
+v9,HTML,DistilBERT 512tok 5ep,0.9795,0.905,4ms,OK,"MAX_CHARS=8000, MAX_LEN=512, fix v8"
+v9,HTML,MobileBERT 512tok 5ep,0.9744,0.872,58ms,OK,+0.1735 vs v8 — 5 epochs fix
+v10,HTML,TF-IDF word+char+Platt,0.9791177071338949,0.8786407766990292,2ms,Prod,"word(1,2)+char(3,5), ECE=0.0775"
+v10,HTML,LightGBM features,0.9881099999999999,0.9446865571572243,0.49ms,Prod,Label bug fix (int vs str)
+v10,HTML,DistilBERT v9 (loaded),0.9794903046096594,0.9049621530698065,4ms GPU,Prod,Chargé depuis models_v9
+v10,HTML,Fusion LGB+DistilBERT,0.9826562608721026,0.9044368600682594,~5ms,Prod,Ranking-based fusion — FIX index mismatch
