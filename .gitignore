@@ -11,7 +11,12 @@
 /models_v3/
 /models_v4/
 /models_v5/
+/models_v6/
+/models_v7/
+/models_v8/
+/models_v9/
 /test/
+/.ipynb_checkpoints/
 
 # === 3. FICHIERS TEMPORAIRES ===
 * - Copie.py
