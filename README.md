@@ -1,11 +1,11 @@
-# 🛡️ Cyber Detection Pipeline — CIC Trap4Phish 2025
+# Cyber Detection Pipeline — CIC Trap4Phish 2025
 
 > **Détection multi-format de fichiers malveillants par IA** — PDF, HTML, Word, Excel, QR Code (Quishing)  
 > Pipeline de recherche et déploiement production · v1 → vFinale · LightGBM · DistilBERT · MobileBERT
 
 ---
 
-## 📌 Contexte et objectifs
+## Contexte et objectifs
 
 Face à la sophistication croissante des cyberattaques — notamment le phishing multi-vecteur, le quishing (QR codes malveillants) et les documents bureautiques piégés — les mécanismes de sécurité statiques (blacklists, règles heuristiques) montrent leurs limites. Ce projet conçoit et déploie un pipeline de détection basé sur l'IA, capable d'analyser simultanément cinq formats d'attaque distincts avec des garanties de performance mesurées.
 
@@ -13,24 +13,24 @@ Ce dépôt documente **10 versions itératives** d'un système de détection, de
 
 ---
 
-## 📊 Résultats finaux mesurés (vFinale — test set)
+## Résultats finaux mesurés (vFinale — test set)
 
 | Modèle | Format | AUC | F1 | ECE | Latence | Statut |
 |--------|--------|-----|-----|-----|---------|--------|
-| **LightGBM + Platt** | HTML features | **0.9881** | **0.9475** | **0.044** | **1.26ms** | ✅ Prod-Ready |
+| **LightGBM + Platt** | HTML features | **0.9881** | **0.9475** | **0.044** | **1.26ms** |  Prod-Ready |
 | LightGBM 5-fold CV | HTML features | 0.9855 ± 0.0023 | — | — | — | IC95% [0.981, 0.990] |
-| TF-IDF word+char + Platt | HTML texte | 0.9790 | 0.8966 | 0.078 | 0.11ms | ✅ Edge/CPU |
-| DistilBERT v9 (512tok, 5ep) | HTML texte | 0.9795 | 0.9050 | 0.126 | ~4ms GPU | ✅ GPU prod |
-| MobileBERT v9 (512tok, 5ep) | HTML texte | 0.9744 | 0.8723 | 0.131 | ~58ms CPU | ✅ Edge |
-| LightGBM URL features | QR Quishing | 0.9814 | 0.9325 | 0.026 | 0.5ms | ✅ Prod-Ready |
-| LightGBM | PDF | 0.9999 | 0.9983 | — | 0.5ms | ⚠️ Réserves |
-| LightGBM | Word/Excel | 1.000 | 1.000 | N/A | 0.5ms | ⚠️ Confond |
+| TF-IDF word+char + Platt | HTML texte | 0.9790 | 0.8966 | 0.078 | 0.11ms |  Edge/CPU |
+| DistilBERT v9 (512tok, 5ep) | HTML texte | 0.9795 | 0.9050 | 0.126 | ~4ms GPU |  GPU prod |
+| MobileBERT v9 (512tok, 5ep) | HTML texte | 0.9744 | 0.8723 | 0.131 | ~58ms CPU |  Edge |
+| LightGBM URL features | QR Quishing | 0.9814 | 0.9325 | 0.026 | 0.5ms |  Prod-Ready |
+| LightGBM | PDF | 0.9999 | 0.9983 | — | 0.5ms |  Réserves |
+| LightGBM | Word/Excel | 1.000 | 1.000 | N/A | 0.5ms |  Confond |
 
-> **⚠️ Word/Excel AUC=1.000** : confond de format (OOXML vs VBA), non un vrai signal. À valider sur dataset mixte avant déploiement.
+> ** Word/Excel AUC=1.000** : confond de format (OOXML vs VBA), non un vrai signal. À valider sur dataset mixte avant déploiement.
 
 ---
 
-## 🏗️ Architecture du système
+##  Architecture du système
 
 ```
 FICHIER ENTRANT (PDF / HTML / DOCX / XLSX / QR PNG)
@@ -56,7 +56,7 @@ FICHIER ENTRANT (PDF / HTML / DOCX / XLSX / QR PNG)
 
 ---
 
-## 📂 Structure du dépôt
+##  Structure du dépôt
 
 ```
 .
@@ -97,7 +97,7 @@ FICHIER ENTRANT (PDF / HTML / DOCX / XLSX / QR PNG)
 │   └── historique_v1_vfinal.csv      # Tableau comparatif toutes versions
 │
 ├── models_v9/                        # Modèles BERT & Historique complet complet (Externalisés)
-│   └── ⚠️ [À TÉLÉCHARGER VIA LE DRIVE] Modèles complets DistilBERT / MobileBERT (>1.5 Go)
+│   └──  [À TÉLÉCHARGER VIA LE DRIVE] Modèles complets DistilBERT / MobileBERT (>1.5 Go)
 │
 ├── Feature Extraction Code/          # Scripts d'extraction par format
 │   ├── HTML_Feature_Extraction.ipynb
@@ -139,7 +139,7 @@ pip install -r deploy/requirements.txt
 Pour éviter d'alourdir le dépôt GitHub, seuls les fichiers tabulaires légers de la **v10 et vFinale** sont inclus directement ici. L'historique complet de toutes les versions ainsi que les architectures BERT lourdes (~1.5 Go) sont hébergés à l'extérieur.
 
 1. Accédez au dossier de stockage :
-👉 **[Télécharger l'ensemble des modèles sur Google Drive](https://drive.google.com/drive/folders/1y-oYiO9r7iwRb3rnNDxkcGhG0Owhr6yg?usp=sharing)**
+**[Télécharger l'ensemble des modèles sur Google Drive](https://drive.google.com/drive/folders/1y-oYiO9r7iwRb3rnNDxkcGhG0Owhr6yg?usp=sharing)**
 2. Pour utiliser les modèles de Deep Learning (v8/v9), téléchargez les répertoires BERT et placez-les dans le dossier `models_v9/` à la racine du projet pour obtenir la structure suivante :
 
 ```text
@@ -190,7 +190,7 @@ print(f"Score: {score:.4f} → {action}")
 
 ---
 
-## 🔬 Méthodologie de recherche — v1 à vFinale
+## Méthodologie de recherche — v1 à vFinale
 
 | Version | Contribution principale | AUC HTML | Problème corrigé |
 |---------|------------------------|----------|-----------------|
@@ -219,7 +219,7 @@ Bénin     : médiane 5261 chars (~1315 tokens)  → vrais sites avec contenu
 
 ---
 
-## 📊 Données — CIC Trap4Phish 2025
+## Données — CIC Trap4Phish 2025
 
 **Source :** Canadian Institute for Cybersecurity (UNB)  
 **Accès :** [https://cicresearch.ca/IOTDataset/CIC_Trap4Phish_2025_Dataset/](https://cicresearch.ca/IOTDataset/CIC_Trap4Phish_2025_Dataset/)
@@ -238,7 +238,7 @@ Les images QR PNG (~15 GB) hebergé par CIC Research et les modèles BERT (~1.5 
 
 ---
 
-## 🔧 Monitoring et dérive
+## Monitoring et dérive
 
 ```python
 # PSI (Population Stability Index)
@@ -258,11 +258,13 @@ POST /drift
 Ce projet s'appuie sur le dataset CIC Trap4Phish 2025 :
 
 ```bibtex
-@dataset{cic_trap4phish_2025,
-  author    = {Nejati, H. and others},
-  title     = {CIC Trap4Phish 2025},
-  year      = {2025},
-  publisher = {Canadian Institute for Cybersecurity, University of New Brunswick},
-  url       = {https://www.unb.ca/cic/datasets/trap4phish2025.html}
+@misc{cic2025,
+	author = {Nejati, F. and Rabbani, M. and Nejati, M.},
+	title = {CIC-Trap4Phish: A Unified Multi-Format Dataset for Phishing and Quishing Attachment Detection},
+	year = {2026},
+	publisher = {University of New Brunswick},
+	eprint = {2602.09015},
+	archivePrefix = {arXiv},
+	keywords = {webo}
 }
 ```
